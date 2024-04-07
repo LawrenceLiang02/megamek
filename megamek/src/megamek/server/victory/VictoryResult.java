@@ -84,12 +84,18 @@ public class VictoryResult {
         return getWinningPlayerOrTeam(playerScore, Player.PLAYER_NONE);
     }
 
+
     /**
      * @return the id of the winning team, or Player.TEAM_NONE if it's a draw
      */
     public int getWinningTeam() {
         return getWinningPlayerOrTeam(teamScore, Player.TEAM_NONE);
     }
+
+
+
+
+
 
     protected void updateHiScore() {
         // used to calculate winner
@@ -213,6 +219,8 @@ public class VictoryResult {
         } else {
             game.cancelVictory();
         }
+        System.out.printf("Here we do something");
+
         return someReports;
     }
 

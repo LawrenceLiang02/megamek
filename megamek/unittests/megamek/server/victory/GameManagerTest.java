@@ -56,6 +56,26 @@ public class GameManagerTest {
         assertTrue(gameManager.victory());
     }
 
+
+    @Test
+    public void testVictoryEloRating() {
+        GameManager gameManager = new GameManager();
+        VictoryResult testVictoryResultFalse = new VictoryResult(false);
+        VictoryResult testVictoryResultTrue = new VictoryResult(true);
+
+        Game testGame = createMockedGame();
+
+        // test whether the server.victory() returns false when mocking VictoryResult as false
+        when(testGame.getVictoryResult()).thenReturn(testVictoryResultFalse);
+        gameManager.setGame(testGame);
+        assertFalse(gameManager.victory());
+
+        // test whether the server.victory() returns true when mocking VictoryResult as true
+        when(testGame.getVictoryResult()).thenReturn(testVictoryResultTrue);
+        gameManager.setGame(testGame);
+        assertTrue(gameManager.victory());
+    }
+
     @Test
     public void testVictoryDrawReport() {
         GameManager gameManager = new GameManager();
@@ -98,7 +118,7 @@ public class GameManagerTest {
     public void testVictoryWinReports() {
         GameManager gameManager = new GameManager();
 
-        int winner = 1;
+            int winner = 1;
 
         // Mock a win victory result
         // Only 1 report should be generated as the team is set to TEAM_NONE

@@ -740,7 +740,7 @@ public class GameManager implements IGameManager {
                 receiveForwardIni(connId);
                 break;
             case BLDG_EXPLODE:
-                Building.DemolitionCharge charge = (Building.DemolitionCharge) packet.getData()[0];
+                DemolitionCharge charge = (DemolitionCharge) packet.getData()[0];
                 if (charge.playerId == connId) {
                     if (!explodingCharges.contains(charge)) {
                         explodingCharges.add(charge);
@@ -2566,6 +2566,7 @@ public class GameManager implements IGameManager {
                 }
                 break;
             case VICTORY:
+                //TODO: Add a elo calculation in here
                 GameVictoryEvent gve = new GameVictoryEvent(this, game);
                 game.processGameEvent(gve);
                 transmitGameVictoryEventToAll();
@@ -2841,8 +2842,25 @@ public class GameManager implements IGameManager {
         for (Report r : vr.processVictory(game)) {
             addReport(r);
         }
+        if(vr.victory()){
+            calculateEloforPLayers(vr );
+        }
         return vr.victory();
     }// end victory
+
+    private void calculateEloforPLayers(VictoryResult result) {
+        System.out.printf("Ici on fait le calcul ?");
+
+        EloProcessor processor = new EloProcessor();
+        processor.setVictoryResults(result);
+        processor.setGameManager(this);
+        processor.calculateElo();
+
+
+
+
+    }
+
 
     private boolean isPlayerForcedVictory() {
         // check game options
@@ -18305,7 +18323,7 @@ public class GameManager implements IGameManager {
         }
         // Check for touched-off explosives
         Vector<Building> updatedBuildings = new Vector<>();
-        for (Building.DemolitionCharge charge : explodingCharges) {
+        for (DemolitionCharge charge : explodingCharges) {
             Building bldg = game.getBoard().getBuildingAt(charge.pos);
             if (bldg == null) { // Shouldn't happen...
                 continue;
