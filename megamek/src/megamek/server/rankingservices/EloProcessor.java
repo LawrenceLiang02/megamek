@@ -11,8 +11,10 @@ import java.util.HashMap;
 public class EloProcessor implements IEloCalculator {
     private static final int INITIAL_ELO_RATING = 1500;
     private static final int K_FACTOR = 32;
-    private IEloCalculationFormula eloFormula;
+    private IEloCalculationFormula eloFormula = null;
     private HashMap<Player, Integer> leaderBoard;
+    private int[] ratings;
+    private boolean[] winnersIndex;
     private VictoryResult result;
     private GameManager gameManager;
 
@@ -41,6 +43,12 @@ public class EloProcessor implements IEloCalculator {
 
             var listPlayer = gameManager.getGame().getPlayersList();
 
+            if(eloFormula==null){
+                eloFormula = new SimpleEloStrategy();
+            }
+
+
+            eloFormula.calculateEloChange(ratings, winnersIndex, K_FACTOR);
         }
     }
 
@@ -53,8 +61,14 @@ public class EloProcessor implements IEloCalculator {
         if (result != null || gameManager != null) {
 
             var listPlayer = gameManager.getGame().getPlayersList();
+
+            ratings = new int[listPlayer.size()];
+            winnersIndex = new boolean[listPlayer.size()];
+
             for (int i = 0; i < listPlayer.size(); i++) {
                 leaderBoard.put(listPlayer.get(i), getPlayerRatingFromDb(listPlayer.get(i)));
+                ratings[i] = leaderBoard.get(listPlayer.get(i));
+                winnersIndex[i] = false;
             }
         }
     }
