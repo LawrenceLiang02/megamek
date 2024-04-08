@@ -43,6 +43,7 @@ import megamek.common.verifier.*;
 import megamek.common.weapons.*;
 import megamek.common.weapons.infantry.InfantryWeapon;
 import megamek.server.commands.*;
+import megamek.server.rankingservices.EloProcessor;
 import megamek.server.victory.VictoryResult;
 import org.apache.logging.log4j.LogManager;
 

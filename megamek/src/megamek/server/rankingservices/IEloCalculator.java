@@ -1,6 +1,7 @@
-package megamek.server;
+package megamek.server.rankingservices;
 
 import megamek.common.Player;
+import megamek.server.GameManager;
 import megamek.server.victory.VictoryResult;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ public interface IEloCalculator {
     //Returns the expected score between two ratings
     double calculateExpectedEloChange(int ratingA, int ratingB);
 
-    boolean updateRating(Player a, Integer newRating);
+    boolean updateRatingInDb(Player a, Integer newRating);
 
     void setVictoryResults(VictoryResult result);
 
@@ -21,6 +22,8 @@ public interface IEloCalculator {
     int getPlayerRatingFromDb(Player player);
 
     void calculateElo();
+
+    void setEloCalculationFormula(IEloCalculationFormula formula);
 
 
 

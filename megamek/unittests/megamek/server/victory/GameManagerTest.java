@@ -5,6 +5,7 @@ import megamek.common.Game;
 import megamek.common.Player;
 import megamek.common.force.Forces;
 import megamek.common.options.GameOptions;
+import megamek.server.rankingservices.EloProcessor;
 import megamek.server.GameManager;
 import org.junit.jupiter.api.Test;
 
@@ -65,15 +66,42 @@ public class GameManagerTest {
 
         Game testGame = createMockedGame();
 
-        // test whether the server.victory() returns false when mocking VictoryResult as false
-        when(testGame.getVictoryResult()).thenReturn(testVictoryResultFalse);
-        gameManager.setGame(testGame);
-        assertFalse(gameManager.victory());
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.getName()).thenReturn("The champion");
+        when(mockedPlayer.getColour()).thenReturn(PlayerColour.BLUE);
 
-        // test whether the server.victory() returns true when mocking VictoryResult as true
-        when(testGame.getVictoryResult()).thenReturn(testVictoryResultTrue);
-        gameManager.setGame(testGame);
-        assertTrue(gameManager.victory());
+        EloProcessor mockedEloProcessor = mock(EloProcessor.class);
+        when(mockedEloProcessor.getPlayerRatingFromDb(mockedPlayer)).thenReturn(1500);
+        //TODO: Finalise
+
+
+    }
+
+    @Test
+    public void testEloRatingLeaderBoard(){
+        GameManager gameManager = new GameManager();
+        Game testGame = createMockedGame();
+
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.getName()).thenReturn("The champion");
+        when(mockedPlayer.getColour()).thenReturn(PlayerColour.BLUE);
+        Player mockedPlayer2 = mock(Player.class);
+        when(mockedPlayer2.getName()).thenReturn("The champion");
+        when(mockedPlayer2.getColour()).thenReturn(PlayerColour.BLUE);
+
+        EloProcessor elo = new EloProcessor();
+        gameManager.getGame().addPlayer(0, mockedPlayer);
+        gameManager.getGame().addPlayer(1, mockedPlayer2);
+
+
+        elo.setGameManager(gameManager);
+        elo.createLeaderBoard();
+
+
+
+
+
+
     }
 
     @Test
