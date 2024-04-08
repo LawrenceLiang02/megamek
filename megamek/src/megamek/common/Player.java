@@ -48,6 +48,7 @@ public final class Player extends TurnOrdered {
     private String email;
     private final int id;
 
+    private int eloRanking;
     private int team = TEAM_NONE;
 
     private boolean done = false; // done with phase
@@ -106,6 +107,12 @@ public final class Player extends TurnOrdered {
     }
     //endregion Constructors
 
+    public int getEloRanking() {
+        return eloRanking;
+    }
+    public void setEloRanking(int eloRanking) {
+        this.eloRanking = eloRanking;
+    }
     public Vector<Minefield> getMinefields() {
         return visibleMinefields;
     }
