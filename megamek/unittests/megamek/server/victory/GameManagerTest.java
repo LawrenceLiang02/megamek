@@ -7,6 +7,10 @@ import megamek.common.force.Forces;
 import megamek.common.options.GameOptions;
 import megamek.server.rankingservices.EloProcessor;
 import megamek.server.GameManager;
+import megamek.server.rankingservices.IEloCalculationFormula;
+import megamek.server.rankingservices.SimpleEloStrategy;
+import megamek.server.rankingservices.OtherEloStrategy;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -96,6 +100,16 @@ public class GameManagerTest {
 
         elo.setGameManager(gameManager);
         elo.createLeaderBoard();
+
+
+        IEloCalculationFormula advancedEloStrategy = new OtherEloStrategy();
+        IEloCalculationFormula simpleEloStrategy = new SimpleEloStrategy();
+
+        elo.setEloCalculationFormula(advancedEloStrategy);
+        elo.calculateElo();
+        elo.setEloCalculationFormula(simpleEloStrategy);
+        elo.calculateElo();
+
 
 
 

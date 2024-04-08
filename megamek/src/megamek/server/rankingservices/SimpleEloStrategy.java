@@ -46,15 +46,3 @@ public class SimpleEloStrategy implements IEloCalculationFormula {
     }
 }
 
- class AdvancedEloStrategy implements IEloCalculationFormula {
-
-     @Override
-     public int[] calculateEloChange(int[] ratings, boolean[] winnersIndex, int kFactor) {
-         return new int[0];
-     }
-
-     @Override
-     public int[] calculateNewRating(int[] ratings, boolean[] winnersIndex, int kFactor) {
-         return new int[0];
-     }
- }
