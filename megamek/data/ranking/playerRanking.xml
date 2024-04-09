@@ -7,17 +7,31 @@
     <player>
         <name>Alice</name>
         <elo>1950</elo>
-        <ranking>2</ranking>
+        <ranking>4</ranking>
     </player>
     <player>
         <name>Michael</name>
         <elo>1850</elo>
-        <ranking>3</ranking>
+        <ranking>5</ranking>
     </player>
     <player>
         <name>admin</name>
         <elo>1500</elo>
-        <ranking>4</ranking>
+        <ranking>6</ranking>
     </player>
-    <!-- Add more players as needed -->
+	<player>
+		<name>TestPlayer</name>
+		<elo>2000</elo>
+		<ranking>2</ranking>
+	</player>
+	<player>
+		<name>TestPlayer2</name>
+		<elo>1000</elo>
+		<ranking>7</ranking>
+	</player>
+	<player>
+		<name>TestPlayer32</name>
+		<elo>2000</elo>
+		<ranking>3</ranking>
+	</player>
 </players>

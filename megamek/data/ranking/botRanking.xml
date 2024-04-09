@@ -2,16 +2,13 @@
     <bot>
         <name>AlphaBot</name>
         <elo>2200</elo>
-        <ranking>1</ranking>
     </bot>
     <bot>
         <name>BetaBot</name>
         <elo>2050</elo>
-        <ranking>2</ranking>
     </bot>
     <bot>
         <name>GammaBot</name>
         <elo>1900</elo>
-        <ranking>3</ranking>
     </bot>
 </bots>

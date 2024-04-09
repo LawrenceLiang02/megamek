@@ -1,6 +1,9 @@
 package megamek.codeUItilities;
 import megamek.utilities.RankingsDBAccessor;
 import org.junit.jupiter.api.Test;
+
+import javax.lang.model.element.Element;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -32,15 +35,15 @@ public class rankingXMLUtilityTest {
     @Test
     public void testAddAndRemovePlayer() throws Exception {
         // Add a player
-        RankingsDBAccessor.addNewPlayer("TestPlayer", 2000, 2);
+        var resp = RankingsDBAccessor.addNewPlayer("TestPlayer32", 2000, 2);
         // Check if the player was added successfully
-        assertNotNull(RankingsDBAccessor.getPlayerFromDb("TestPlayer"));
+        assertNull(resp); // Should return -1 if already exists
+
+        assertNotNull(RankingsDBAccessor.getPlayerElementByName("TestPlayer32"));
 
         // Remove the added player
-       // RankingsDBAccessor.deletePlayer("TestPlayer");
+        RankingsDBAccessor.deletePlayer("TestPlayer32");
         // Check if the player was removed successfully
-       // assertNull(RankingsDBAccessor.getPlayerFromDb("TestPlayer"));
+        assertNull(RankingsDBAccessor.getPlayerElementByName("TestPlayer32"));
     }
-
-
 }
