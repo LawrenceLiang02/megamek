@@ -102,21 +102,25 @@ public class EloProcessor implements IEloCalculator {
     }
 
     public void createLeaderBoard() {
-        if (result != null && gameManager != null && gameManager.getGame() != null) {
-            var listPlayer = gameManager.getGame().getPlayersList();
-            if (listPlayer != null) {
-                ratings = new int[listPlayer.size()]; // Initialize ratings array
-                winnersIndex = new boolean[listPlayer.size()];
+        if (result != null || gameManager != null) {
+            System.out.println("createLeaderBoard() method called.");
 
-                for (int i = 0; i < listPlayer.size(); i++) {
-                    leaderBoard.put(listPlayer.get(i), getPlayerRatingFromDb(listPlayer.get(i)));
-                    ratings[i] = leaderBoard.get(listPlayer.get(i));
-                    winnersIndex[i] = false;
-                }
+            var listPlayer = gameManager.getGame().getPlayersList();
+            System.out.println("Number of players: " + listPlayer.size());
+
+            ratings = new int[listPlayer.size()];
+            winnersIndex = new boolean[listPlayer.size()];
+
+            for (int i = 0; i < listPlayer.size(); i++) {
+                Player currentPlayer = listPlayer.get(i);
+                System.out.println("Adding player to leaderboard: " + currentPlayer.getName());
+
+                leaderBoard.put(currentPlayer, getPlayerRatingFromDb(currentPlayer));
+                ratings[i] = leaderBoard.get(currentPlayer);
+                winnersIndex[i] = false;
             }
         }
     }
-
     @Override
     public HashMap<Player, Integer> getLeaderBoard() {
         return leaderBoard;

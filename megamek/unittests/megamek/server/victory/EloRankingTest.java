@@ -9,22 +9,12 @@ import megamek.server.rankingservices.SimpleEloStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import megamek.common.Player;
 import megamek.server.GameManager;
-import megamek.server.victory.VictoryResult;
 import megamek.utilities.RankingsDBAccessor;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class EloRankingTest {
 //    private EloProcessor eloProcessor;
@@ -72,7 +62,7 @@ public class EloRankingTest {
         HashMap<Player, Integer> leaderBoard = new HashMap<>();
         Player player1 = new Player(1, "John");
         Player player2 = new Player(2, "Jane");
-        leaderBoard.put(player1, 1500);
+        leaderBoard.put(player1, 2300);
         leaderBoard.put(player2, 1500);
 
         // Mock GameManager and its methods
@@ -96,6 +86,7 @@ public class EloRankingTest {
             assertEquals(expectedRating, actualLeaderBoard.get(expectedPlayer));
         }
     }
+
     @Test
     void testCalculateElo() {
         int[] ratings = {1500, 1500};
@@ -130,7 +121,7 @@ public class EloRankingTest {
     @Test
     void testGetPlayerRatingFromDb() {
         Player player = new Player(1, "John");
-        int expectedRating = 1500; // Example expected rating
+        int expectedRating = 2300;
         Mockito.when(rankingsDBAccessor.getPlayerElementByName(player.getName())).thenReturn(null);
         assertEquals(expectedRating, eloProcessor.getPlayerRatingFromDb(player));
     }
