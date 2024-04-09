@@ -27,11 +27,16 @@
 	<player>
 		<name>TestPlayer2</name>
 		<elo>1000</elo>
-		<ranking>7</ranking>
+		<ranking>8</ranking>
 	</player>
 	<player>
 		<name>TestPlayer32</name>
 		<elo>2000</elo>
 		<ranking>3</ranking>
+	</player>
+	<player>
+		<name>Jane</name>
+		<elo>1500</elo>
+		<ranking>7</ranking>
 	</player>
 </players>

@@ -80,7 +80,8 @@ public class GameManagerTest {
 
 
         elo.setGameManager(gameManager);
-        elo.createLeaderBoard();
+        elo.createLeaderBoard(gameManager.getGame().getPlayersList());
+
 
 
         IEloCalculationFormula advancedEloStrategy = new OtherEloStrategy();

@@ -8,11 +8,13 @@ public class SimpleEloStrategy implements IEloCalculationFormula {
     public int[] calculateEloChange(int[] ratings, boolean[] winnersIndex, int kFactor) {
         double[] expectedScores = calculateExpectedScores(ratings);
         int[] eloChanges = new int[ratings.length];
-
+        double[] a = new double[ratings.length];
         for (int i = 0; i < ratings.length; i++) {
             double actualScore = winnersIndex[i] ? 1.0 : 0.0;
             double expectedScore = expectedScores[i];
-            eloChanges[i] = (int) Math.round(kFactor * (actualScore - expectedScore));
+            double scoreDiff = actualScore - expectedScore;
+            eloChanges[i] = (int) Math.round(kFactor * (scoreDiff));
+            a[i] = (kFactor * (scoreDiff));
         }
 
         return eloChanges;
@@ -35,11 +37,12 @@ public class SimpleEloStrategy implements IEloCalculationFormula {
         double sumExp = 0;
 
         for (int rating : ratings) {
-            sumExp += Math.pow(10, rating / 400.0);
+            sumExp += Math.pow(10, (rating / 400.0));
         }
 
+        // Calculate expected scores
         for (int i = 0; i < ratings.length; i++) {
-            expectedScores[i] = Math.pow(10, ratings[i] / 400.0) / sumExp;
+            expectedScores[i] = Math.pow(10, (ratings[i] / 400.0)) / sumExp;
         }
 
         return expectedScores;

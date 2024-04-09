@@ -5,6 +5,8 @@ import megamek.server.GameManager;
 import megamek.server.victory.VictoryResult;
 import megamek.utilities.RankingsDBAccessor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import java.util.HashMap;
@@ -12,7 +14,7 @@ import java.util.HashMap;
 
 public class EloProcessor implements IEloCalculator {
     private static final int INITIAL_ELO_RATING = 1500;
-    private static final int K_FACTOR = 32;
+    private static final int K_FACTOR = 50;
     private IEloCalculationFormula eloFormula = null;
     private HashMap<Player, Integer> leaderBoard;
     private int[] ratings;
@@ -20,18 +22,25 @@ public class EloProcessor implements IEloCalculator {
     private VictoryResult result;
     private GameManager gameManager;
     private RankingsDBAccessor rankingService = new RankingsDBAccessor();
+
+
     public EloProcessor() {
         leaderBoard = new HashMap<>();
     }
+
     public EloProcessor(HashMap<Player, Integer> leaderBoard) {
         this.leaderBoard = leaderBoard;
     }
+
     public EloProcessor(VictoryResult result) {
         this.result = result;
     }
+
     public EloProcessor(GameManager gameManager) {
         this.gameManager = gameManager;
     }
+
+
     public EloProcessor(HashMap<Player, Integer> leaderBoard, VictoryResult result) {
         this.leaderBoard = leaderBoard;
         this.result = result;
@@ -39,6 +48,11 @@ public class EloProcessor implements IEloCalculator {
 
 
     public void calculateElo() {
+
+        if(leaderBoard==null || leaderBoard.isEmpty()){
+            createLeaderBoard();
+        }
+
         if (result != null && gameManager != null) {
             int winningPlayer = result.getWinningPlayer();
             int winningTeam = result.getWinningTeam();
@@ -50,13 +64,38 @@ public class EloProcessor implements IEloCalculator {
             }
 
 
-            eloFormula.calculateEloChange(ratings, winnersIndex, K_FACTOR);
+            int[] eloChanged = eloFormula.calculateEloChange(ratings, winnersIndex, K_FACTOR);
         }
     }
 
     @Override
     public void setEloCalculationFormula(IEloCalculationFormula formula) {
         this.eloFormula = formula;
+    }
+
+    public void createLeaderBoard(List<Player> playersList ) {
+            ratings = new int[playersList.size()];
+            winnersIndex = new boolean[playersList.size()];
+
+            for (int i = 0; i < playersList.size(); i++) {
+                leaderBoard.put(playersList.get(i), getPlayerRatingFromDb(playersList.get(i)));
+                ratings[i] = leaderBoard.get(playersList.get(i));
+                winnersIndex[i] = false;
+            }
+
+    }
+
+    public void createLeaderBoard(GameManager gameManager) {
+        List<Player> playersList = gameManager.getGame().getPlayersList();
+        ratings = new int[playersList.size()];
+        winnersIndex = new boolean[playersList.size()];
+
+        for (int i = 0; i < playersList.size(); i++) {
+            leaderBoard.put(playersList.get(i), getPlayerRatingFromDb(playersList.get(i)));
+            ratings[i] = leaderBoard.get(playersList.get(i));
+            winnersIndex[i] = false;
+        }
+
     }
 
     public void createLeaderBoard() {
@@ -118,5 +157,14 @@ public class EloProcessor implements IEloCalculator {
 
 
     }
+
+    public void setWinnersIndex(boolean[] winnersIndex) {
+        this.winnersIndex = winnersIndex;
+    }
+
+    public void setRatings(int[] ratings) {
+        this.ratings = ratings;
+    }
+
 }
 
