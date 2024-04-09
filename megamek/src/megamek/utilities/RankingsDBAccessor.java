@@ -1,3 +1,5 @@
+package megamek.utilities;
+
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,7 +15,15 @@ public class RankingsDBAccessor {
 
     private static String playerFileName = "data/ranking/playerRanking.xml";
     private static File xmlFile = new File(playerFileName);
-    private static Document doc = loadXMLDocument(xmlFile);
+    private static Document doc;
+
+    static {
+        try {
+            doc = loadXMLDocument(xmlFile);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void updatePlayer(String playerName, int newElo, int newRanking) throws Exception {
         File xmlFile = new File(playerFileName);
