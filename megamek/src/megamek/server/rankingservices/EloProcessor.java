@@ -163,8 +163,6 @@ public class EloProcessor implements IEloCalculator {
         {
             return 1500;
         }
-
-
     }
 
     public void setWinnersIndex(boolean[] winnersIndex) {
