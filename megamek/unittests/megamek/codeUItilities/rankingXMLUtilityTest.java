@@ -29,4 +29,18 @@ public class rankingXMLUtilityTest {
     }
 
 
+    @Test
+    public void testAddAndRemovePlayer() throws Exception {
+        // Add a player
+        RankingsDBAccessor.updatePlayer("TestPlayer", 2000, 2);
+        // Check if the player was added successfully
+        assertNotNull(RankingsDBAccessor.getPlayerFromDb("TestPlayer"));
+
+        // Remove the added player
+        RankingsDBAccessor.deletePlayer("TestPlayer");
+        // Check if the player was removed successfully
+        assertNull(RankingsDBAccessor.getPlayerFromDb("TestPlayer"));
+    }
+
+
 }

@@ -12,17 +12,19 @@ import org.w3c.dom.NodeList;
 public class RankingsDBAccessor {
 
     private static String playerFileName = "data/ranking/playerRanking.xml";
+    private static File xmlFile = new File(playerFileName);
+    private static Document doc = loadXMLDocument(xmlFile);
 
     public static void updatePlayer(String playerName, int newElo, int newRanking) throws Exception {
         File xmlFile = new File(playerFileName);
         Document doc = loadXMLDocument(xmlFile);
-        Element playerElement = getPlayerElementByName(doc, playerName);
+        Element playerElement = getPlayerFromDb(playerName);
 
         if (playerElement != null) {
             updatePlayerData(playerElement, newElo, newRanking);
         } else {
             // Add player if not existing
-            playerElement = addNewPlayer(doc, playerName, newElo, newRanking);
+            playerElement = addNewPlayer( playerName, newElo, newRanking);
         }
 
         saveXMLDocument(doc, xmlFile);
@@ -35,7 +37,7 @@ public class RankingsDBAccessor {
         return dBuilder.parse(xmlFile);
     }
 
-    private static Element getPlayerElementByName(Document doc, String playerName) {
+    public static Element getPlayerFromDb( String playerName) {
         NodeList playerList = doc.getElementsByTagName("player");
         for (int i = 0; i < playerList.getLength(); i++) {
             Element player = (Element) playerList.item(i);
@@ -52,7 +54,7 @@ public class RankingsDBAccessor {
         playerElement.getElementsByTagName("ranking").item(0).setTextContent(String.valueOf(newRanking));
     }
 
-    private static Element addNewPlayer(Document doc, String playerName, int newElo, int newRanking) {
+    private static Element addNewPlayer(String playerName, int newElo, int newRanking) {
         Element newPlayer = doc.createElement("player");
         Element nameElement = doc.createElement("name");
         nameElement.appendChild(doc.createTextNode(playerName));
@@ -66,6 +68,21 @@ public class RankingsDBAccessor {
         doc.getDocumentElement().appendChild(newPlayer);
         return newPlayer;
     }
+
+    public static void deletePlayer(String playerName) throws Exception {
+        File xmlFile = new File(playerFileName);
+        Document doc = loadXMLDocument(xmlFile);
+        Element playerElement = getPlayerFromDb(playerName);
+
+        if (playerElement != null) {
+            playerElement.getParentNode().removeChild(playerElement);
+            saveXMLDocument(doc, xmlFile);
+            System.out.println("Player '" + playerName + "' deleted successfully.");
+        } else {
+            System.out.println("Player '" + playerName + "' not found.");
+        }
+    }
+
 
     private static void saveXMLDocument(Document doc, File xmlFile) throws Exception {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
