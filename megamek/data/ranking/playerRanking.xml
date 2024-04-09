@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><players>
+    <player>
+        <name>John</name>
+        <elo>2300</elo>
+        <ranking>1</ranking>
+    </player>
+    <player>
+        <name>Alice</name>
+        <elo>1950</elo>
+        <ranking>2</ranking>
+    </player>
+    <player>
+        <name>Michael</name>
+        <elo>1850</elo>
+        <ranking>3</ranking>
+    </player>
+    <!-- Add more players as needed -->
+</players>
