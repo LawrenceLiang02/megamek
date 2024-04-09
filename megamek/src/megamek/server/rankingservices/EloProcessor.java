@@ -102,17 +102,17 @@ public class EloProcessor implements IEloCalculator {
     }
 
     public void createLeaderBoard() {
-        if (result != null || gameManager != null) {
-
+        if (result != null && gameManager != null && gameManager.getGame() != null) {
             var listPlayer = gameManager.getGame().getPlayersList();
+            if (listPlayer != null) {
+                ratings = new int[listPlayer.size()]; // Initialize ratings array
+                winnersIndex = new boolean[listPlayer.size()];
 
-            ratings = new int[listPlayer.size()];
-            winnersIndex = new boolean[listPlayer.size()];
-
-            for (int i = 0; i < listPlayer.size(); i++) {
-                leaderBoard.put(listPlayer.get(i), getPlayerRatingFromDb(listPlayer.get(i)));
-                ratings[i] = leaderBoard.get(listPlayer.get(i));
-                winnersIndex[i] = false;
+                for (int i = 0; i < listPlayer.size(); i++) {
+                    leaderBoard.put(listPlayer.get(i), getPlayerRatingFromDb(listPlayer.get(i)));
+                    ratings[i] = leaderBoard.get(listPlayer.get(i));
+                    winnersIndex[i] = false;
+                }
             }
         }
     }
