@@ -63,25 +63,6 @@ public class GameManagerTest {
 
 
     @Test
-    public void testVictoryEloRating() {
-        GameManager gameManager = new GameManager();
-        VictoryResult testVictoryResultFalse = new VictoryResult(false);
-        VictoryResult testVictoryResultTrue = new VictoryResult(true);
-
-        Game testGame = createMockedGame();
-
-        Player mockedPlayer = mock(Player.class);
-        when(mockedPlayer.getName()).thenReturn("The champion");
-        when(mockedPlayer.getColour()).thenReturn(PlayerColour.BLUE);
-
-        EloProcessor mockedEloProcessor = mock(EloProcessor.class);
-        when(mockedEloProcessor.getPlayerRatingFromDb(mockedPlayer)).thenReturn(1500);
-        //TODO: Finalise
-
-
-    }
-
-    @Test
     public void testEloRatingLeaderBoard(){
         GameManager gameManager = new GameManager();
         Game testGame = createMockedGame();
@@ -109,6 +90,11 @@ public class GameManagerTest {
         elo.calculateElo();
         elo.setEloCalculationFormula(simpleEloStrategy);
         elo.calculateElo();
+
+        gameManager.setGame(testGame);
+        VictoryResult testVictoryResultTrue = new VictoryResult(true);
+        when(testGame.getVictoryResult()).thenReturn(testVictoryResultTrue);
+
 
 
 
