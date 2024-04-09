@@ -2855,6 +2855,7 @@ public class GameManager implements IGameManager {
         EloProcessor processor = new EloProcessor();
         processor.setVictoryResults(result);
         processor.setGameManager(this);
+        processor.createLeaderBoard();
         processor.calculateElo();
 
 
