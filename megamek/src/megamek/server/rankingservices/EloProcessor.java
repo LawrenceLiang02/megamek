@@ -62,8 +62,7 @@ public class EloProcessor implements IEloCalculator {
             if(eloFormula==null){
                 eloFormula = new SimpleEloStrategy();
             }
-
-
+            
             int[] eloChanged = eloFormula.calculateEloChange(ratings, winnersIndex, K_FACTOR);
         }
     }
