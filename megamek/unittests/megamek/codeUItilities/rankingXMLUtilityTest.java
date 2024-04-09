@@ -38,12 +38,22 @@ public class rankingXMLUtilityTest {
         var resp = RankingsDBAccessor.addNewPlayer("TestPlayer32", 2000, 2);
         // Check if the player was added successfully
         assertNull(resp); // Should return -1 if already exists
-
         assertNotNull(RankingsDBAccessor.getPlayerElementByName("TestPlayer32"));
-
         // Remove the added player
         RankingsDBAccessor.deletePlayer("TestPlayer32");
         // Check if the player was removed successfully
         assertNull(RankingsDBAccessor.getPlayerElementByName("TestPlayer32"));
+    }
+
+    @Test
+    public void testGetPlayerElementByName_PlayerExists() {
+        // Check if a player exists in the database
+        assertNotNull(RankingsDBAccessor.getPlayerElementByName("John"));
+    }
+
+    @Test
+    public void testGetPlayerElementByName_PlayerDoesNotExist() {
+        // Check if a player does not exist in the database
+        assertNull(RankingsDBAccessor.getPlayerElementByName("UnknownPlayer"));
     }
 }

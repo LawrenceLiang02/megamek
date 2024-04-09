@@ -3,6 +3,8 @@ package megamek.server.rankingservices;
 import megamek.common.Player;
 import megamek.server.GameManager;
 import megamek.server.victory.VictoryResult;
+import megamek.utilities.RankingsDBAccessor;
+
 import java.util.Random;
 
 import java.util.HashMap;
@@ -17,7 +19,7 @@ public class EloProcessor implements IEloCalculator {
     private boolean[] winnersIndex;
     private VictoryResult result;
     private GameManager gameManager;
-
+    private RankingsDBAccessor rankingService = new RankingsDBAccessor();
     public EloProcessor() {
         leaderBoard = new HashMap<>();
     }
@@ -103,17 +105,17 @@ public class EloProcessor implements IEloCalculator {
     @Override
     public int getPlayerRatingFromDb(Player player) {
         Random rand = new Random();
-
-        boolean isInDB = true;
-        if (isInDB) {
+        int elo =0;
+        var play = RankingsDBAccessor.getPlayerElementByName(player.getName());
+        if (play != null) {
             //Normally you would get the value from the DB
-            return rand.nextInt(700) + 1200;
+            return Integer.parseInt(play.getElementsByTagName("elo").item(0).getTextContent());
         }
-        if(!isInDB)
+        else
         {
             return 1500;
         }
-        return -1;
+
 
     }
 }

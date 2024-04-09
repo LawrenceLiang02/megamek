@@ -22,6 +22,7 @@ package megamek.common;
 import megamek.client.ui.swing.util.PlayerColour;
 import megamek.common.icons.Camouflage;
 import megamek.common.options.OptionsConstants;
+import megamek.utilities.RankingsDBAccessor;
 
 import java.util.Objects;
 import java.util.Vector;
@@ -98,12 +99,24 @@ public final class Player extends TurnOrdered {
     //Voting should not be stored in save game so marked transient
     private transient boolean votedToAllowTeamChange = false;
     private transient boolean votedToAllowGameMaster = false;
+    private RankingsDBAccessor rankDB = new RankingsDBAccessor();
     //endregion Variable Declarations
 
     //region Constructors
     public Player(int id, String name) {
         this.name = name;
         this.id = id;
+        var player = rankDB.getPlayerElementByName(name);
+        if(player != null) {
+            this.eloRanking = Integer.parseInt(player.getElementsByTagName("elo").item(0).getTextContent());
+        }
+        else{
+            try {
+                rankDB.addNewPlayer(name, 1500, 0);
+            }catch (Exception e){
+                System.out.println("Can't add new player");
+            }
+        }
     }
     //endregion Constructors
 
@@ -111,6 +124,11 @@ public final class Player extends TurnOrdered {
         return eloRanking;
     }
     public void setEloRanking(int eloRanking) {
+        try {
+            RankingsDBAccessor.updatePlayer(name, eloRanking, 0);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         this.eloRanking = eloRanking;
     }
     public Vector<Minefield> getMinefields() {
