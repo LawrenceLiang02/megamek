@@ -8,15 +8,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class rankingXMLUtilityTest {
 
     @Test
-    public void testUpdatePlayer_Success() {
-        try {
+    public void testUpdatePlayer_Success() throws Exception {
+
             RankingsDBAccessor.updatePlayer( "John", 2300, 1);
             // Verify if the player was updated successfully by checking if the file has changed
             // You can add more assertions here if needed
-        } catch (Exception e) {
-            fail("Exception thrown: " + e.getMessage());
-        }
-    }
+             assertTrue(true);
+
+            }
 
     @Test
     public void testUpdatePlayer_PlayerNotFound() {

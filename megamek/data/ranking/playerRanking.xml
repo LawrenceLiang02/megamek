@@ -14,5 +14,10 @@
         <elo>1850</elo>
         <ranking>3</ranking>
     </player>
+    <player>
+        <name>admin</name>
+        <elo>1500</elo>
+        <ranking>4☻</ranking>
+    </player>
     <!-- Add more players as needed -->
 </players>
