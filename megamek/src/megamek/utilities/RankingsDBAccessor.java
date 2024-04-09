@@ -54,7 +54,7 @@ public class RankingsDBAccessor {
         playerElement.getElementsByTagName("ranking").item(0).setTextContent(String.valueOf(newRanking));
     }
 
-    private static Element addNewPlayer(String playerName, int newElo, int newRanking) {
+    public static Element addNewPlayer(String playerName, int newElo, int newRanking) {
         Element newPlayer = doc.createElement("player");
         Element nameElement = doc.createElement("name");
         nameElement.appendChild(doc.createTextNode(playerName));
