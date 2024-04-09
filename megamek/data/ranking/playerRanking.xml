@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><players>
     <player>
         <name>John</name>
-        <elo>2300</elo>
+        <elo>2256</elo>
         <ranking>1</ranking>
     </player>
     <player>
         <name>Alice</name>
-        <elo>1950</elo>
+        <elo>1994</elo>
         <ranking>4</ranking>
     </player>
     <player>

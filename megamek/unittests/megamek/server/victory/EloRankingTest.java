@@ -41,6 +41,7 @@ public class EloRankingTest {
 
         eloProcessor.createLeaderBoard(gameManager); // Creating a list of the players in the game
         eloProcessor.setWinnersIndex(new boolean[]{false, true});
+
         eloProcessor.calculateElo();
 
 

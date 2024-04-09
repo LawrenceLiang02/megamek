@@ -26,8 +26,7 @@ public class RankingsDBAccessor {
     }
 
     public static void updatePlayer(String playerName, int newElo, int newRanking) throws Exception {
-        File xmlFile = new File(playerFileName);
-        Document doc = loadXMLDocument(xmlFile);
+
         Element playerElement = getPlayerElementByName( playerName);
 
         if (playerElement != null) {
@@ -36,15 +35,13 @@ public class RankingsDBAccessor {
             // Add player if not existing
             playerElement = addNewPlayer(playerName, newElo, newRanking);
         }
-
         updateRankings();
         saveXMLDocument(doc, xmlFile);
         System.out.println("Player '" + playerName + "' updated successfully.");
     }
 
     public static void deletePlayer(String playerName) throws Exception {
-        File xmlFile = new File(playerFileName);
-        Document doc = loadXMLDocument(xmlFile);
+
         Element playerElement = getPlayerElementByName( playerName);
 
         if (playerElement != null) {

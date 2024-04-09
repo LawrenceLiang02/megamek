@@ -62,8 +62,12 @@ public class EloProcessor implements IEloCalculator {
             if(eloFormula==null){
                 eloFormula = new SimpleEloStrategy();
             }
-            
             int[] eloChanged = eloFormula.calculateEloChange(ratings, winnersIndex, K_FACTOR);
+            for (int i = 0; i < listPlayer.size(); i++) {
+                ratings[i] += eloChanged[i];
+                leaderBoard.put(listPlayer.get(i), ratings[i]);
+                updateRatingInDb(listPlayer.get(i), ratings[i]);
+            }
         }
     }
 
@@ -125,8 +129,14 @@ public class EloProcessor implements IEloCalculator {
 
     @Override
     public boolean updateRatingInDb(Player player, Integer newRating) {
-        boolean succcessOfTransaction = true;
-        return succcessOfTransaction;
+       player.setEloRanking(newRating);
+        try {
+            RankingsDBAccessor.updatePlayer(player.getName(), newRating, 0);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
