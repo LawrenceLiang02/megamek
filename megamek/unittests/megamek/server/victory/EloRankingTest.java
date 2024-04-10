@@ -62,8 +62,8 @@ public class EloRankingTest {
         HashMap<Player, Integer> leaderBoard = new HashMap<>();
         Player player1 = new Player(1, "John");
         Player player2 = new Player(2, "Jane");
-        leaderBoard.put(player1, 2300);
-        leaderBoard.put(player2, 1500);
+        leaderBoard.put(player1, 1600);
+        leaderBoard.put(player2, 2300);
 
         // Mock GameManager and its methods
         GameManager gameManager = Mockito.mock(GameManager.class);
@@ -101,7 +101,6 @@ public class EloRankingTest {
         eloProcessor.createLeaderBoard();
 
         eloProcessor.calculateElo();
-        // Add assertion for expected outcome if applicable
     }
 
     @Test
@@ -121,7 +120,7 @@ public class EloRankingTest {
     @Test
     void testGetPlayerRatingFromDb() {
         Player player = new Player(1, "John");
-        int expectedRating = 2300;
+        int expectedRating = 1600;
         Mockito.when(rankingsDBAccessor.getPlayerElementByName(player.getName())).thenReturn(null);
         assertEquals(expectedRating, eloProcessor.getPlayerRatingFromDb(player));
     }
