@@ -2567,7 +2567,6 @@ public class GameManager implements IGameManager {
                 }
                 break;
             case VICTORY:
-                //TODO: Add a elo calculation in here
                 GameVictoryEvent gve = new GameVictoryEvent(this, game);
                 game.processGameEvent(gve);
                 transmitGameVictoryEventToAll();

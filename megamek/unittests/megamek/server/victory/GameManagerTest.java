@@ -147,7 +147,7 @@ public class GameManagerTest {
     public void testVictoryWinReports() {
         GameManager gameManager = new GameManager();
 
-            int winner = 1;
+        int winner = 1;
 
         // Mock a win victory result
         // Only 1 report should be generated as the team is set to TEAM_NONE

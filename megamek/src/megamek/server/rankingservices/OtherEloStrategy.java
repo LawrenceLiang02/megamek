@@ -6,6 +6,7 @@ public class OtherEloStrategy implements IEloCalculationFormula {
 
      @Override
      public int[] calculateEloChange(int[] ratings, boolean[] winnersIndex, int kFactor) {
+         //Here you could put any other type of calculations
          return new int[0];
      }
 

@@ -157,7 +157,6 @@ public class EloProcessor implements IEloCalculator {
     @Override
     public int getPlayerRatingFromDb(Player player) {
         Random rand = new Random();
-        int elo =0;
         var play = RankingsDBAccessor.getPlayerElementByName(player.getName());
         if (play != null) {
             //Normally you would get the value from the DB
