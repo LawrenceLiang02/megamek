@@ -39,6 +39,32 @@ public class VictoryResultTest {
     }
 
     @Test
+    public void testEloCalculations() {
+        // Trivial case: no players
+        VictoryResult testResult = new VictoryResult(false);
+        assertSame(Player.PLAYER_NONE, testResult.getWinningPlayer());
+
+        // Case with two players
+        int winningPlayer = 0;
+        int losingPlayer = 1;
+
+        testResult.addPlayerScore(winningPlayer, 100);
+        testResult.addPlayerScore(losingPlayer, 40);
+
+        assertSame(winningPlayer, testResult.getWinningPlayer());
+
+        // Case with three players and a draw
+        int secondWinningPlayer = 2;
+
+        testResult.addPlayerScore(secondWinningPlayer, 100);
+        assertNotSame(secondWinningPlayer, testResult.getWinningPlayer());
+        assertNotSame(winningPlayer, testResult.getWinningPlayer());
+        assertSame(Player.PLAYER_NONE, testResult.getWinningPlayer());
+    }
+
+
+
+    @Test
     public void testGetWinningTeam() {
         // Trivial case: no team
         VictoryResult testResult = new VictoryResult(false);

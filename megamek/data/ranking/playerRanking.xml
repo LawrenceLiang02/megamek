@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><players>
+    <player>
+        <name>John</name>
+        <elo>1600</elo>
+        <ranking>5</ranking>
+    </player>
+    <player>
+        <name>Alice</name>
+        <elo>1994</elo>
+        <ranking>3</ranking>
+    </player>
+    <player>
+        <name>Michael</name>
+        <elo>1850</elo>
+        <ranking>4</ranking>
+    </player>
+    <player>
+        <name>admin</name>
+        <elo>1500</elo>
+        <ranking>6</ranking>
+    </player>
+	<player>
+		<name>TestPlayer</name>
+		<elo>2000</elo>
+		<ranking>2</ranking>
+	</player>
+	<player>
+		<name>TestPlayer2</name>
+		<elo>1000</elo>
+		<ranking>10</ranking>
+	</player>
+	
+	<player>
+		<name>Jane</name>
+		<elo>1500</elo>
+		<ranking>7</ranking>
+	</player>
+	<player>
+		<name>UnknownPlayer</name>
+		<elo>2300</elo>
+		<ranking>1</ranking>
+	</player>
+	<player>
+		<name>jefke</name>
+		<elo>1500</elo>
+		<ranking>8</ranking>
+	</player>
+	<player>
+		<name>Jeanke</name>
+		<elo>1500</elo>
+		<ranking>9</ranking>
+	</player>
+	
+	
+	
+</players>

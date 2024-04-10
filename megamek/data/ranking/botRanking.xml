@@ -1,0 +1,14 @@
+<bots>
+    <bot>
+        <name>AlphaBot</name>
+        <elo>2200</elo>
+    </bot>
+    <bot>
+        <name>BetaBot</name>
+        <elo>2050</elo>
+    </bot>
+    <bot>
+        <name>GammaBot</name>
+        <elo>1900</elo>
+    </bot>
+</bots>

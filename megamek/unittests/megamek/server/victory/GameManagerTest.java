@@ -5,7 +5,12 @@ import megamek.common.Game;
 import megamek.common.Player;
 import megamek.common.force.Forces;
 import megamek.common.options.GameOptions;
+import megamek.server.rankingservices.EloProcessor;
 import megamek.server.GameManager;
+import megamek.server.rankingservices.IEloCalculationFormula;
+import megamek.server.rankingservices.SimpleEloStrategy;
+import megamek.server.rankingservices.OtherEloStrategy;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -56,6 +61,50 @@ public class GameManagerTest {
         assertTrue(gameManager.victory());
     }
 
+
+    @Test
+    public void testEloRatingLeaderBoard(){
+        GameManager gameManager = new GameManager();
+        Game testGame = createMockedGame();
+
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.getName()).thenReturn("The champion");
+        when(mockedPlayer.getColour()).thenReturn(PlayerColour.BLUE);
+        Player mockedPlayer2 = mock(Player.class);
+        when(mockedPlayer2.getName()).thenReturn("The champion");
+        when(mockedPlayer2.getColour()).thenReturn(PlayerColour.BLUE);
+
+        EloProcessor elo = new EloProcessor();
+        gameManager.getGame().addPlayer(0, mockedPlayer);
+        gameManager.getGame().addPlayer(1, mockedPlayer2);
+
+
+        elo.setGameManager(gameManager);
+        elo.createLeaderBoard(gameManager.getGame().getPlayersList());
+
+
+
+        IEloCalculationFormula advancedEloStrategy = new OtherEloStrategy();
+        IEloCalculationFormula simpleEloStrategy = new SimpleEloStrategy();
+
+        elo.setEloCalculationFormula(advancedEloStrategy);
+        elo.calculateElo();
+        elo.setEloCalculationFormula(simpleEloStrategy);
+        elo.calculateElo();
+
+        gameManager.setGame(testGame);
+        VictoryResult testVictoryResultTrue = new VictoryResult(true);
+        when(testGame.getVictoryResult()).thenReturn(testVictoryResultTrue);
+
+
+
+
+
+
+
+
+    }
+
     @Test
     public void testVictoryDrawReport() {
         GameManager gameManager = new GameManager();
@@ -98,7 +147,7 @@ public class GameManagerTest {
     public void testVictoryWinReports() {
         GameManager gameManager = new GameManager();
 
-        int winner = 1;
+            int winner = 1;
 
         // Mock a win victory result
         // Only 1 report should be generated as the team is set to TEAM_NONE
